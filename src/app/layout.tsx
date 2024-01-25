@@ -1,10 +1,7 @@
 import './globals.css';
 
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-
-import StateProvider from './state-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,12 +20,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${inter.className} min-w-[320px]`}>
-                <StateProvider>
-                    {children}
-                    <ReactQueryDevtools initialIsOpen={false} />
-                </StateProvider>
-            </body>
+            <body className={`${inter.className} min-w-[320px]`}>{children}</body>
         </html>
     );
 }
