@@ -1,19 +1,23 @@
-import { GoodWorkJournalEntry } from '@/lib/good-work-journal-entry/types';
+import {
+    dehydrate,
+    HydrationBoundary,
+    QueryClient
+} from '@tanstack/react-query';
 
-export default function Home() {
-    const dailyEntries: GoodWorkJournalEntry[] = [];
+import JournalEntries from './journal-entries';
+import { QueryKey } from './state-manager/query-key';
+
+export default async function JournalEntriesPage() {
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery({
+        queryKey: [QueryKey.JournalEntries],
+        queryFn: () => []
+    });
 
     return (
-        <main className="min-h-screen">
-            {dailyEntries.length > 0 ?
-                <ul>
-                    <li>Last entry</li>
-                    <li>Last entry</li>
-                    <li>Last entry</li>
-                    <li>Last entry</li>
-                </ul> : null}
-
-            <button type="button">Add new entry</button>
-        </main>
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <JournalEntries />
+        </HydrationBoundary>
     );
 }
