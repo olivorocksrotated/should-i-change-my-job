@@ -1,8 +1,7 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:tailwindcss/recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended"
+    "plugin:tailwindcss/recommended"
   ],
   "plugins": ["simple-import-sort", "@typescript-eslint", "react"],
   "parserOptions": {
