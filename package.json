@@ -4,24 +4,42 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "dependencies:check": "ncu",
+    "dependencies:update": "ncu -u && npm install && npm run lint:fix",
+    "analyze": "cross-env ANALYZE=true next build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.1.0"
+    "next": "14.1.0",
+    "clsx": "^2.1.0",
+    "date-fns": "^3.3.1",
+    "react-icons": "^5.0.1"
   },
   "devDependencies": {
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@next/bundle-analyzer": "^14.1.0",
+    "autoprefixer": "^10.4.17",
+    "cross-env": "^7.0.3",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^3.4.1",
     "eslint": "^8",
-    "eslint-config-next": "14.1.0"
+    "eslint-config-next": "14.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-tailwindcss": "^3.14.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "npm-check-updates": "^16.14.12"
   }
 }
