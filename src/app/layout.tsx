@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="dark">
-            <body className={`${inter.className} min-w-[320px]`}>
+            <body className={`${inter.className} mx-auto min-h-screen min-w-[320px] max-w-3xl rounded border border-indigo-950`}>
                 <Providers>{children}</Providers>
             </body>
         </html>
