@@ -9,11 +9,11 @@ export const useLocalStorage = <T>(
         key,
         initialValue,
     );
-    const [firstRender, setFirstRender] = useState(false);
+    const [firstRender, setFirstRender] = useState(true);
 
     useEffect(() => {
-        setFirstRender(true);
+        setFirstRender(false);
     }, []);
 
-    return [firstRender ? storedValue : initialValue, setStoredValue];
+    return [firstRender ? initialValue : storedValue, setStoredValue];
 };
