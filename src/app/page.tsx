@@ -40,37 +40,18 @@ export default function RandomChoicePage() {
         isShowing: false
     })));
 
-    const animationRoundsLimit = 3;
-    const [animationRounds, setAnimationRounds] = useState(0);
     const [updateInterval, setUpdateInterval] = useState<number | null>(50);
 
     const onTick = () => {
         const isEveryCharFilled = animatedTitle.every(({ isShowing }) => isShowing);
         if (isEveryCharFilled) {
-            setAnimationRounds((value) => value + 1);
-        }
-        if (animationRounds === animationRoundsLimit) {
             setUpdateInterval(() => null);
         }
 
         const updatedTitle = structuredClone(animatedTitle);
-
-        const isFirstCharFilled = updatedTitle[0].isShowing;
-        const isLastCharFilled = updatedTitle[updatedTitle.length - 1].isShowing;
-        const fromStartToEnd =
-            !isFirstCharFilled && !isLastCharFilled ? true :
-            isFirstCharFilled && isLastCharFilled ? false :
-            isFirstCharFilled && !isLastCharFilled ? true :
-            !isFirstCharFilled && isLastCharFilled ? false : null;
-
         for (const entry of updatedTitle) {
-            if (fromStartToEnd && !entry.isShowing) {
+            if (!entry.isShowing) {
                 entry.isShowing = true;
-                break;
-            }
-
-            if (!fromStartToEnd && entry.isShowing) {
-                entry.isShowing = false;
                 break;
             }
         }
@@ -121,6 +102,7 @@ export default function RandomChoicePage() {
                         defaultValue={0}
                         value={choice.value}
                     />
+                    <h4>Take a couple of seconds to reflect on how you feel about this answer</h4>
                 </div> : null}
         </main>
     );
