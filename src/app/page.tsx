@@ -1,7 +1,9 @@
 'use client';
 
 import { Button, Slider } from '@nextui-org/react';
+import clsx from 'clsx';
 import { useState } from 'react';
+import { useInterval } from 'usehooks-ts';
 
 interface Choice {
     name: string;
@@ -27,9 +29,56 @@ const pickRandomChoice = (): Choice => {
     return choices[randomChoiceNumber];
 };
 
+const title = 'Should you change your job?';
+
 export default function RandomChoicePage() {
     const [buttonClicked, setButtonClicked] = useState(false);
     const [choice, setChoice] = useState(defaultChoice);
+
+    const [animatedTitle, setAnimatedTitle] = useState(title.split('').map((char) => ({
+        char,
+        isShowing: false
+    })));
+
+    const animationRoundsLimit = 3;
+    const [animationRounds, setAnimationRounds] = useState(0);
+    const [updateInterval, setUpdateInterval] = useState<number | null>(50);
+
+    const onTick = () => {
+        const isEveryCharFilled = animatedTitle.every(({ isShowing }) => isShowing);
+        if (isEveryCharFilled) {
+            setAnimationRounds((value) => value + 1);
+        }
+        if (animationRounds === animationRoundsLimit) {
+            setUpdateInterval(() => null);
+        }
+
+        const updatedTitle = structuredClone(animatedTitle);
+
+        const isFirstCharFilled = updatedTitle[0].isShowing;
+        const isLastCharFilled = updatedTitle[updatedTitle.length - 1].isShowing;
+        const fromStartToEnd =
+            !isFirstCharFilled && !isLastCharFilled ? true :
+            isFirstCharFilled && isLastCharFilled ? false :
+            isFirstCharFilled && !isLastCharFilled ? true :
+            !isFirstCharFilled && isLastCharFilled ? false : null;
+
+        for (const entry of updatedTitle) {
+            if (fromStartToEnd && !entry.isShowing) {
+                entry.isShowing = true;
+                break;
+            }
+
+            if (!fromStartToEnd && entry.isShowing) {
+                entry.isShowing = false;
+                break;
+            }
+        }
+
+        setAnimatedTitle(() => updatedTitle);
+    };
+
+    useInterval(onTick, updateInterval);
 
     const onFindOut = () => {
         setChoice(pickRandomChoice());
@@ -38,7 +87,19 @@ export default function RandomChoicePage() {
 
     return (
         <main className="flex flex-col items-center gap-12 p-8">
-            <h1 className="text-center text-5xl">Should you change your job?</h1>
+            <h1 className="text-center text-4xl">
+                {animatedTitle.map(({ char, isShowing }, index) => (
+                    <span
+                        key={index}
+                        className={clsx(
+                            'font-light transition-[all] duration-500 ease-in',
+                            { 'text-indigo-300': isShowing }
+                        )}
+                    >
+                        {char}
+                    </span>
+                ))}
+            </h1>
             <Button
                 size="lg"
                 radius="full"
