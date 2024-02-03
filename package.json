@@ -17,10 +17,12 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@nextui-org/react": "^2.2.9",
+    "ai": "^2.2.33",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
     "framer-motion": "^11.0.3",
     "next": "14.1.0",
+    "openai-edge": "^1.2.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.50.0",
