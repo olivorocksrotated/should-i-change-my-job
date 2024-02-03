@@ -16,12 +16,12 @@ const defaultChoice: Choice = {
     value: 0
 };
 
-const choices: Choice[] = [
-    defaultChoice,
-    { name: 'Not convinced', value: 25 },
-    { name: 'Perhaps', value: 50 },
-    { name: 'Probably', value: 75 },
-    { name: 'Hell yeah', value: 100 }
+const choices: (Choice & { rotationDelayClass: string })[] = [
+    { ...defaultChoice, rotationDelayClass: 'animation-delay-[0s]' },
+    { name: 'Not convinced', value: 25, rotationDelayClass: 'animation-delay-[2s]' },
+    { name: 'Perhaps', value: 50, rotationDelayClass: 'animation-delay-[4s]' },
+    { name: 'Probably', value: 75, rotationDelayClass: 'animation-delay-[6s]' },
+    { name: 'Hell yeah', value: 100, rotationDelayClass: 'animation-delay-[8s]' }
 ];
 
 const pickRandomChoice = (): Choice => {
@@ -93,6 +93,15 @@ export default function RandomChoicePage() {
             >
                 Find out!
             </Button>
+
+            <div className="relative mb-8 h-6 w-40 text-red-500">
+                {choices.map(({ name, rotationDelayClass }, index) => (
+                    <span key={index} className={`absolute inset-x-0 top-0 mx-auto w-40 animate-rotate overflow-hidden text-center opacity-0 ${rotationDelayClass}`}>
+                        {name}
+                    </span>
+                ))}
+            </div>
+
             {buttonClicked && choice ?
                 <div className="flex w-full flex-col items-center gap-10">
                     <h2 className="text-2xl">{choice.name}</h2>
