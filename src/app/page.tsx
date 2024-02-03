@@ -2,6 +2,7 @@
 
 import { Button, Slider } from '@nextui-org/react';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useInterval } from 'usehooks-ts';
 
@@ -68,19 +69,22 @@ export default function RandomChoicePage() {
 
     return (
         <main className="flex flex-col items-center gap-12 p-8">
-            <h1 className="text-center text-4xl">
-                {animatedTitle.map(({ char, isShowing }, index) => (
-                    <span
-                        key={index}
-                        className={clsx(
-                            'font-light transition-[all] duration-500 ease-in',
-                            { 'text-indigo-300': isShowing }
-                        )}
-                    >
-                        {char}
-                    </span>
-                ))}
-            </h1>
+            <header className="flex w-full items-center justify-between">
+                <h1 className="text-center text-4xl">
+                    {animatedTitle.map(({ char, isShowing }, index) => (
+                        <span
+                            key={index}
+                            className={clsx(
+                                'font-light transition-[all] duration-500 ease-in',
+                                { 'text-indigo-300': isShowing }
+                            )}
+                        >
+                            {char}
+                        </span>
+                    ))}
+                </h1>
+                <Link href="/story"><Button>Story</Button></Link>
+            </header>
             <Button
                 size="lg"
                 radius="full"
