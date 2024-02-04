@@ -1,44 +1,52 @@
 'use client';
 
 import { Button, Slider, Textarea } from '@nextui-org/react';
+import { useForm } from 'react-hook-form';
+
+interface Story {
+    summary: string;
+    great: string;
+    sucks: string;
+}
 
 export default function StoryPage() {
+    const { register, handleSubmit, formState: { errors } } = useForm<Story>();
+    const onSubmit = (data: any) => console.log({ data, errors });
+
     return (
         <article>
-            <div className="mb-4">
+            <form className="mb-4" onSubmit={handleSubmit(onSubmit)}>
                 <Textarea
+                    isRequired
                     label="What's going on at work?"
                     placeholder="Write as much or as little as you want"
-                    className="w-full"
+                    className="mb-4 w-full"
                     variant="bordered"
+                    {...register('summary', { required: true })}
                 />
-            </div>
-
-            <div className="mb-4">
                 <Textarea
                     label="What's great at work?"
-                    className="w-full"
+                    className="mb-4 w-full"
                     variant="bordered"
+                    {...register('great')}
                 />
-            </div>
-
-            <div className="mb-4">
                 <Textarea
                     label="What sucks at work?"
-                    className="w-full"
+                    className="mb-4 w-full"
                     variant="bordered"
+                    {...register('sucks')}
                 />
-            </div>
-
-            <div className="mb-4 text-center">
-                <Button
-                    size="lg"
-                    radius="full"
-                    className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
-                >
-                    Use magic AI to get your answer
-                </Button>
-            </div>
+                <div className="text-center">
+                    <Button
+                        type="submit"
+                        size="lg"
+                        radius="full"
+                        className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                    >
+                        Use magic AI to get your answer
+                    </Button>
+                </div>
+            </form>
 
             <div className="flex justify-center">
                 <Slider
@@ -52,7 +60,6 @@ export default function StoryPage() {
                     value={0}
                 />
             </div>
-
         </article>
     );
 }
