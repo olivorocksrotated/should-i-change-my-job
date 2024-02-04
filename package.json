@@ -30,6 +30,7 @@
     "react-hook-form": "^7.50.0",
     "react-icons": "^5.0.1",
     "rxdb": "^15.6.1",
+    "rxdb-hooks": "^5.0.2",
     "rxjs": "^7.8.1",
     "usehooks-ts": "^2.12.1"
   },
