@@ -1,15 +1,10 @@
 'use client';
 
 import { Button, Slider, Textarea } from '@nextui-org/react';
-import Link from 'next/link';
 
 export default function StoryPage() {
     return (
         <article>
-            <div className="mb-6">
-                <Link href="/"><Button>Random</Button></Link>
-            </div>
-
             <div className="mb-4">
                 <Textarea
                     label="What's going on at work?"
