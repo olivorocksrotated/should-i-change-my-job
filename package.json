@@ -17,6 +17,8 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@nextui-org/react": "^2.2.9",
+    "@upstash/ratelimit": "^1.0.0",
+    "@vercel/kv": "^1.0.1",
     "ai": "^2.2.33",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
