@@ -1,9 +1,13 @@
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 
+import Onboarding from './components/onboarding';
+
 export default function HomePage() {
     return (
-        <>
+        <main className="relative">
+            <Onboarding />
+
             <h1 className="mb-6 text-xl">How quickly do you want to make a decision?</h1>
 
             <article className="mb-4">
@@ -20,6 +24,6 @@ export default function HomePage() {
                 <h2 className="mb-1">Slowly and safely</h2>
                 <Link href="/journal"><Button>Journal</Button></Link>
             </article>
-        </>
+        </main>
     );
 }

@@ -1,11 +1,17 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
+import { iphone14ProMaxSize } from './constants/dev-mobile-size';
 import { Providers } from './providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const font = Roboto({
+    weight: ['100', '300', '400', '500', '700', '900'],
+    style: ['normal'],
+    subsets: ['latin'],
+    display: 'swap'
+});
 
 export const metadata: Metadata = {
     title: 'Should I change my job?',
@@ -21,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="bg-gradient-to-r from-sky-500 to-indigo-500 p-6 dark">
-            <body className={`${inter.className} mx-auto h-[932px] w-[430px] max-w-3xl rounded border border-indigo-950 p-8`}>
+        <html lang="en" className="bg-gradient-to-b from-neutral-900 to-neutral-800 p-6 dark">
+            <body className={`${font.className} mx-auto ${iphone14ProMaxSize} max-w-3xl border border-indigo-950`}>
                 <Providers>{children}</Providers>
             </body>
         </html>
