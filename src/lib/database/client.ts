@@ -11,11 +11,13 @@ export const initDatabase = async () => {
             name: 'should-i-quit-my-job-db',
             storage: getRxStorageDexie()
         });
-        console.info('Database created');
+        console.info('Database started');
 
-        await db.addCollections({
-            [Collection.Stories]: { schema: storySchema }
-        });
+        if (!db[Collection.Stories]) {
+            await db.addCollections({
+                [Collection.Stories]: { schema: storySchema }
+            });
+        }
 
         return db;
     } catch (error) {
