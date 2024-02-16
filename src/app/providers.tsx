@@ -3,13 +3,14 @@
 import { NextUIProvider } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import { addRxPlugin, RxDatabase } from 'rxdb';
-import { RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
+import { disableWarnings, RxDBDevModePlugin } from 'rxdb/plugins/dev-mode';
 import { Provider as DatabaseProvider } from 'rxdb-hooks';
 
 import { initDatabase } from '@/lib/database/client';
 import { isDevEnvironment } from '@/lib/environments/is-dev';
 
 if (isDevEnvironment()) {
+    disableWarnings();
     addRxPlugin(RxDBDevModePlugin);
 }
 
