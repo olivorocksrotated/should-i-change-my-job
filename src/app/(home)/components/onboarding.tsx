@@ -8,7 +8,7 @@ import { useStep } from 'usehooks-ts';
 
 import { db, User } from '@/lib/database/dexie';
 
-import { iphone14ProMaxSize } from '../constants/dev-mobile-size';
+import { iphone14ProMaxSize } from '../../constants/dev-mobile-size';
 
 
 interface Props {
@@ -22,7 +22,7 @@ export default function Onboarding({ user }: Props) {
     const setIsOnboardingDone = () => db.user.update(user, { showOnboarding: false });
 
     return (
-        <article className={`${iphone14ProMaxSize} absolute left-0 top-0 z-10 flex flex-col bg-white text-neutral-800`}>
+        <article className={`${iphone14ProMaxSize} absolute left-0 top-0 z-10 flex flex-col`}>
             {step === 1 ? (
                 <>
                     <section className="p-8">

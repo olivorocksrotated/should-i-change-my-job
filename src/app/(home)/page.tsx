@@ -38,26 +38,26 @@ export default function HomePage() {
                     </motion.div>) :
 
                     user?.showOnboarding ? <Onboarding user={user} /> : (
-                        <article>
-                            <section className="p-8">
+                        <article className="p-8">
+                            <section>
                                 <h1 className="mb-2 text-4xl font-extralight">How quickly do you</h1>
                                 <h2 className="text-4xl">Want to make a decision?</h2>
                             </section>
 
-                            <article className="mb-4">
+                            <section className="mb-4">
                                 <h2 className="mb-1">Very quickly, without much thought</h2>
-                                <Link href="/random"><Button>Random choice</Button></Link>
-                            </article>
+                                <Link href="/choices/random"><Button>Random choice</Button></Link>
+                            </section>
 
-                            <article className="mb-4">
+                            <section className="mb-4">
                                 <h2 className="mb-1">Somehow slowly, with some reflection</h2>
-                                <Link href="/story"><Button>Story</Button></Link>
-                            </article>
+                                <Link href="/choices/story"><Button>Story</Button></Link>
+                            </section>
 
-                            <article className="mb-4">
+                            <section className="mb-4">
                                 <h2 className="mb-1">Slowly and safely</h2>
-                                <Link href="/journal"><Button>Journal</Button></Link>
-                            </article>
+                                <Link href="/choices/journal"><Button>Journal</Button></Link>
+                            </section>
                         </article>)}
             </AnimatePresence>
         </main>
