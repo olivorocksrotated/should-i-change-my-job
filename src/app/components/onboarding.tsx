@@ -12,7 +12,7 @@ import { iphone14ProMaxSize } from '../constants/dev-mobile-size';
 
 
 interface Props {
-    user: User
+    user: User;
 }
 
 export default function Onboarding({ user }: Props) {

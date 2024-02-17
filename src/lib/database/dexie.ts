@@ -1,8 +1,10 @@
 import Dexie, { Table } from 'dexie';
 
+import { getUser } from './queries';
+
 export interface User {
     id?: string;
-    isOnboardingDone: boolean;
+    showOnboarding: boolean;
 }
 
 export interface Story {
@@ -21,11 +23,21 @@ export class MySubClassedDexie extends Dexie {
 
     constructor() {
         super(dbName);
-        this.version(1).stores({
-            user: '++id, isOnboardingDone',
+        this.version(2).stores({
+            user: '++id, showOnboarding',
             stories: '++id, summary, great, sucks, createdAt'
         });
     }
 }
 
 export const db = new MySubClassedDexie();
+
+export const createLocalUser = async () => {
+    const user = await getUser();
+    if (user) {
+        return;
+    }
+
+    const id = Date.now().toString();
+    db.user.add({ id, showOnboarding: true }, id);
+};
