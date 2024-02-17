@@ -3,17 +3,30 @@
 import { Button } from '@nextui-org/react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 import { getUser } from '@/lib/database/queries';
+import useLoader from '@/lib/hooks/use-loader';
 
+import Loader from './components/loader';
 import Onboarding from './components/onboarding';
 
 export default function HomePage() {
     const user = useLiveQuery(getUser);
+    const { isLoading, stopLoadingWithDelay } = useLoader();
+
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+        stopLoadingWithDelay(3000);
+    }, [user, stopLoadingWithDelay]);
 
     return (
         <main className="relative">
-            {user?.showOnboarding ? <Onboarding user={user} /> : (
+            {isLoading ? <Loader /> :
+
+            user?.showOnboarding ? <Onboarding user={user} /> : (
                 <>
                     <h1 className="mb-6 text-xl">How quickly do you want to make a decision?</h1>
 
