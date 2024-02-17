@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="bg-gradient-to-b from-neutral-900 to-neutral-800 p-6 dark">
-            <body className={`${font.className} mx-auto ${iphone14ProMaxSize} max-w-3xl border border-indigo-950`}>
+            <body className={`${font.className} mx-auto ${iphone14ProMaxSize} max-w-3xl border border-neutral-700`}>
                 <Providers>{children}</Providers>
             </body>
         </html>
