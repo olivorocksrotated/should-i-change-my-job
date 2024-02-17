@@ -2,31 +2,35 @@
 
 import { Button } from '@nextui-org/react';
 import Image from 'next/image';
-import { useState } from 'react';
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
 import { MdDone } from 'react-icons/md';
-import { useLocalStorage } from 'usehooks-ts';
+import { useStep } from 'usehooks-ts';
+
+import { db, User } from '@/lib/database/dexie';
 
 import { iphone14ProMaxSize } from '../constants/dev-mobile-size';
 
-const isOnboardingDoneStorageKey = 'is-onboarding-done';
-export default function Onboarding() {
-    const [isOnboardingDone, setIsOnboardingDone] = useLocalStorage(isOnboardingDoneStorageKey, true, { initializeWithValue: true });
-    const [step, setStep] = useState(0);
 
-    const goNext = () => setStep((currentStep) => currentStep + 1);
-    const goBack = () => setStep((currentStep) => currentStep - 1);
+interface Props {
+    user: User
+}
 
-    return isOnboardingDone ? null : (
+export default function Onboarding({ user }: Props) {
+    const [step, operations] = useStep(3);
+    const { goToNextStep, goToPrevStep } = operations;
+
+    const setIsOnboardingDone = () => db.user.update(user, { showOnboarding: false });
+
+    return (
         <article className={`${iphone14ProMaxSize} absolute left-0 top-0 z-10 flex flex-col bg-white text-neutral-800`}>
-            {step === 0 ? (
+            {step === 1 ? (
                 <>
                     <section className="p-8">
                         <h1 className="mb-2 text-4xl font-extralight">Should you</h1>
                         <h2 className="text-4xl">Quit your job?</h2>
                     </section>
                     <section className="relative size-full">
-                        <Image src="/onboarding-1.svg" alt="Hello onboarding" fill={true} />
+                        <Image priority={true} src="/onboarding-1.svg" alt="Hello onboarding" fill={true} />
                     </section>
                     <section className="mt-auto p-8">
                         <p className="text-3xl font-extralight">Damn hard to answer</p>
@@ -37,21 +41,21 @@ export default function Onboarding() {
                             size="lg"
                             variant="faded"
                             className="h-16 text-2xl font-light"
-                            onClick={goNext}
+                            onClick={goToNextStep}
                         >
                             Get started <HiOutlineArrowLongRight size={40} />
                         </Button>
                     </section>
                 </>
             ) : null}
-            {step === 1 ? (
+            {step === 2 ? (
                 <>
                     <section className="p-8">
                         <h1 className="mb-2 text-4xl font-extralight">How can you</h1>
                         <h2 className="text-4xl">Find an answer?</h2>
                     </section>
                     <section className="relative size-full">
-                        <Image src="/onboarding-2.svg" alt="Question onboarding" fill={true} />
+                        <Image priority={true} src="/onboarding-2.svg" alt="Question onboarding" fill={true} />
                     </section>
                     <section className="mt-auto p-8">
                         <p className="text-3xl font-extralight">We will ask questions</p>
@@ -62,7 +66,7 @@ export default function Onboarding() {
                                 size="sm"
                                 variant="bordered"
                                 className="h-16 text-neutral-700"
-                                onClick={goBack}
+                                onClick={goToPrevStep}
                             >
                                 <HiOutlineArrowLongLeft size={40} />
                             </Button>
@@ -70,7 +74,7 @@ export default function Onboarding() {
                                 size="lg"
                                 variant="faded"
                                 className="h-16"
-                                onClick={goNext}
+                                onClick={goToNextStep}
                             >
                                 <HiOutlineArrowLongRight size={40} />
                             </Button>
@@ -78,14 +82,14 @@ export default function Onboarding() {
                     </section>
                 </>
             ) : null}
-            {step === 2 ? (
+            {step === 3 ? (
                 <>
                     <section className="p-8">
                         <h1 className="mb-2 text-4xl font-extralight">Or you can</h1>
                         <h2 className="text-4xl">Spin the wheel</h2>
                     </section>
                     <section className="relative size-full">
-                        <Image src="/onboarding-3.svg" alt="Hello onboarding" fill={true} />
+                        <Image priority={true} src="/onboarding-3.svg" alt="Hello onboarding" fill={true} />
                     </section>
                     <section className="mt-auto p-8">
                         <p className="text-3xl font-extralight">And you&apos;ll get</p>
@@ -96,7 +100,7 @@ export default function Onboarding() {
                                 size="sm"
                                 variant="bordered"
                                 className="h-16 text-neutral-700"
-                                onClick={goBack}
+                                onClick={goToPrevStep}
                             >
                                 <HiOutlineArrowLongLeft size={40} />
                             </Button>
@@ -104,7 +108,7 @@ export default function Onboarding() {
                                 size="lg"
                                 variant="faded"
                                 className="h-16 text-2xl font-light"
-                                onClick={() => setIsOnboardingDone(true)}
+                                onClick={setIsOnboardingDone}
                             >
                             Let&apos;s go <MdDone />
                             </Button>
