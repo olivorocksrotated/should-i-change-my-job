@@ -16,7 +16,7 @@ export interface Story {
 }
 
 const dbName = 'should-i-quit-my-job';
-export class MySubClassedDexie extends Dexie {
+export class Database extends Dexie {
     public user!: Table<User>;
 
     public stories!: Table<Story>;
@@ -30,7 +30,7 @@ export class MySubClassedDexie extends Dexie {
     }
 }
 
-export const db = new MySubClassedDexie();
+export const db = new Database();
 
 export const createLocalUser = async () => {
     const user = await getUser();
