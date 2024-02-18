@@ -40,7 +40,7 @@ export default function Onboarding({ user }: Props) {
                             fullWidth={true}
                             size="lg"
                             variant="faded"
-                            className="h-16 text-2xl font-light"
+                            className="h-16 text-2xl font-light dark"
                             onClick={goToNextStep}
                         >
                             Get started <HiOutlineArrowLongRight size={40} />
@@ -73,7 +73,7 @@ export default function Onboarding({ user }: Props) {
                             <Button
                                 size="lg"
                                 variant="faded"
-                                className="h-16"
+                                className="h-16 dark"
                                 onClick={goToNextStep}
                             >
                                 <HiOutlineArrowLongRight size={40} />
@@ -107,7 +107,7 @@ export default function Onboarding({ user }: Props) {
                             <Button
                                 size="lg"
                                 variant="faded"
-                                className="h-16 text-2xl font-light"
+                                className="h-16 text-2xl font-light dark"
                                 onClick={setIsOnboardingDone}
                             >
                             Let&apos;s go <MdDone />
