@@ -1,1 +1,1 @@
-export const iphone14ProMaxSize = 'sm:h-[932px] sm:w-[430px]';
+export const iphone14ProMaxSize = 'lg:h-[932px] lg:w-[430px]';
