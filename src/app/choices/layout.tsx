@@ -8,8 +8,8 @@ export default function ChoicesLayout({
 }>) {
     return (
         <>
-            <header className="mb-6">
-                <Link href="/"><Button>← Back</Button></Link>
+            <header className="mb-3 py-2">
+                <Link href="/"><Button variant="light">← Back</Button></Link>
             </header>
             <main>
                 {children}

@@ -1,65 +1,50 @@
 'use client';
 
-import { Button, Slider, Textarea } from '@nextui-org/react';
-import { useForm } from 'react-hook-form';
-
-interface Story {
-    summary: string;
-    great: string;
-    sucks: string;
-}
+import { Button, Card, CardBody, Textarea } from '@nextui-org/react';
+import { useChat } from 'ai/react';
+import { IoSend } from 'react-icons/io5';
 
 export default function StoryPage() {
-    const { register, handleSubmit, formState: { errors } } = useForm<Story>();
-    const onSubmit = (data: any) => console.log({ data, errors });
+    const { messages, input, handleInputChange, handleSubmit } = useChat({ api: '/api/ai' });
 
     return (
-        <article>
-            <form className="mb-4" onSubmit={handleSubmit(onSubmit)}>
+        <article className="flex flex-col justify-between">
+            <form
+                onSubmit={handleSubmit}
+                className="mb-4 flex items-center justify-between gap-4 bg-neutral-200 px-3 py-2"
+            >
                 <Textarea
-                    isRequired
-                    label="What's going on at work?"
-                    placeholder="Write as much or as little as you want"
-                    className="mb-4 w-full"
-                    variant="bordered"
-                    {...register('summary', { required: true })}
+                    type="text"
+                    size="sm"
+                    label="Your answer"
+                    minRows={1}
+                    maxRows={3}
+                    value={input}
+                    onChange={handleInputChange}
                 />
-                <Textarea
-                    label="What's great at work?"
-                    className="mb-4 w-full"
-                    variant="bordered"
-                    {...register('great')}
-                />
-                <Textarea
-                    label="What sucks at work?"
-                    className="mb-4 w-full"
-                    variant="bordered"
-                    {...register('sucks')}
-                />
-                <div className="text-center">
-                    <Button
-                        type="submit"
-                        size="lg"
-                        radius="full"
-                        className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
-                    >
-                        Use magic AI to get your answer
-                    </Button>
-                </div>
+                <Button
+                    type="submit"
+                    color="primary"
+                    variant="solid"
+                    size="lg"
+                    isIconOnly
+                    className="mb-auto h-14"
+                >
+                    <IoSend size={20} />
+                </Button>
             </form>
 
-            <div className="flex justify-center">
-                <Slider
-                    aria-label="Result"
-                    size="lg"
-                    color="success"
-                    startContent={<h3>Nope</h3>}
-                    endContent={<h3>Yes</h3>}
-                    className="max-w-md"
-                    defaultValue={0}
-                    value={0}
-                />
-            </div>
+            <ul>
+                {messages.map((m, index) => (
+                    <li key={index} className={`mb-4 ${m.role === 'user' ? 'pl-6' : 'pr-6'}`}>
+                        <Card className={m.role === 'user' ? 'light' : 'dark'}>
+                            <CardBody>
+                                <p>{m.content}</p>
+                            </CardBody>
+                        </Card>
+                    </li>
+                ))}
+            </ul>
         </article>
     );
 }
