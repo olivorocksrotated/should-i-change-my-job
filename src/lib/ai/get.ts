@@ -1,6 +1,8 @@
+import { ChatCompletionRequestMessage } from 'openai-edge';
+
 import { openAiClient } from './client';
 
-export async function getStreamedAiResponse(messages: { role: 'user' | 'assistant', content: string }[]) {
+export async function getStreamedAiResponse(messages: ChatCompletionRequestMessage[]) {
     return openAiClient.createChatCompletion({
         model: 'gpt-4',
         messages,

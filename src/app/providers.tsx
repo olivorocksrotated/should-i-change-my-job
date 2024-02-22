@@ -2,7 +2,7 @@
 
 import { NextUIProvider } from '@nextui-org/react';
 
-import { createLocalUser } from '@/lib/database/dexie';
+import { createLocalUser } from '@/lib/database/create';
 import { isClient, isIndexedDBAvailable } from '@/lib/environments/client';
 
 if (isClient() && isIndexedDBAvailable()) {

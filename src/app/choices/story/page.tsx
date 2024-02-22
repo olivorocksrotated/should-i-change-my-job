@@ -2,10 +2,22 @@
 
 import { Button, Card, CardBody, Textarea } from '@nextui-org/react';
 import { useChat } from 'ai/react';
+import { useEffect } from 'react';
 import { IoSend } from 'react-icons/io5';
 
+import { createOrUpdateStory } from '@/lib/database/create';
+import { getStory } from '@/lib/database/queries';
+
 export default function StoryPage() {
-    const { messages, input, handleInputChange, handleSubmit } = useChat({ api: '/api/ai' });
+    const { messages, input, setMessages, handleInputChange, handleSubmit } = useChat({ api: '/api/ai' });
+
+    useEffect(() => {
+        getStory().then(setMessages);
+    }, [setMessages]);
+
+    useEffect(() => {
+        createOrUpdateStory(messages);
+    }, [messages]);
 
     return (
         <article className="flex flex-col justify-between">

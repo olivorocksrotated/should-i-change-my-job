@@ -1,43 +1,24 @@
+import { Message } from 'ai/react';
 import Dexie, { Table } from 'dexie';
-
-import { getUser } from './queries';
 
 export interface User {
     id?: string;
     showOnboarding: boolean;
 }
 
-export interface Story {
-  id?: string;
-  summary: string;
-  great: string;
-  sucks: string;
-  createdAt: Date;
-}
-
 const dbName = 'should-i-quit-my-job';
 export class Database extends Dexie {
     public user!: Table<User>;
 
-    public stories!: Table<Story>;
+    public storyMessages!: Table<Message>;
 
     constructor() {
         super(dbName);
-        this.version(2).stores({
+        this.version(4).stores({
             user: '++id, showOnboarding',
-            stories: '++id, summary, great, sucks, createdAt'
+            storyMessages: '++id, role, content, createdAt'
         });
     }
 }
 
 export const db = new Database();
-
-export const createLocalUser = async () => {
-    const user = await getUser();
-    if (user) {
-        return;
-    }
-
-    const id = Date.now().toString();
-    db.user.add({ id, showOnboarding: true }, id);
-};
