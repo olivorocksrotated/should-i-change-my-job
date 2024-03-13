@@ -93,7 +93,7 @@ export default function HomePage() {
                                             />
                                         </CardHeader>
                                         <CardBody className="relative p-0">
-                                            <p className="text-sm">5 minutes</p>
+                                            <p className="text-sm">30 minutes</p>
                                         </CardBody>
                                     </Card>
                                 </Link>
@@ -120,7 +120,7 @@ export default function HomePage() {
                                             />
                                         </CardHeader>
                                         <CardBody className="relative p-0">
-                                            <p className="text-sm">5 minutes</p>
+                                            <p className="text-sm">15 days</p>
                                         </CardBody>
                                     </Card>
                                 </Link>
