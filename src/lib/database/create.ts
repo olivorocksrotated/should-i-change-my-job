@@ -1,9 +1,8 @@
 import { Message } from 'ai/react';
 
 import { db } from './dexie';
+import { createId } from './id';
 import { getUser } from './queries';
-
-const createId = () => Date.now().toString();
 
 export const createLocalUser = async () => {
     const user = await getUser();
