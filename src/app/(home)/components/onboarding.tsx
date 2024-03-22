@@ -2,24 +2,20 @@
 
 import { Button } from '@nextui-org/react';
 import Image from 'next/image';
+import { MouseEvent } from 'react';
 import { HiOutlineArrowLongLeft, HiOutlineArrowLongRight } from 'react-icons/hi2';
 import { MdDone } from 'react-icons/md';
 import { useStep } from 'usehooks-ts';
 
-import { db, User } from '@/lib/database/dexie';
+import { useSetPartialValuesCallback } from '@/lib/database/store';
 
 import { iphone14ProMaxSize } from '../../constants/dev-mobile-size';
 
-
-interface Props {
-    user: User;
-}
-
-export default function Onboarding({ user }: Props) {
+export default function Onboarding() {
     const [step, operations] = useStep(3);
     const { goToNextStep, goToPrevStep } = operations;
 
-    const setIsOnboardingDone = () => db.user.update(user, { showOnboarding: false });
+    const setIsOnboardingDone = useSetPartialValuesCallback<MouseEvent>(() => ({ showOnboarding: false }));
 
     return (
         <article className={`${iphone14ProMaxSize} absolute left-0 top-0 z-10 flex flex-col`}>

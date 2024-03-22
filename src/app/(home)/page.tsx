@@ -1,28 +1,34 @@
 'use client';
 
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
-import { useLiveQuery } from 'dexie-react-hooks';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { useEventListener } from 'usehooks-ts';
 
-import { getUser } from '@/lib/database/queries';
+import { useSetPartialValuesCallback, useValues } from '@/lib/database/store';
 import useLoader from '@/lib/hooks/use-loader';
 
 import Loader from './components/loader';
 import Onboarding from './components/onboarding';
 
 export default function HomePage() {
-    const user = useLiveQuery(getUser);
-    const { isLoading, stopLoadingWithDelay } = useLoader();
+    const appSettings = useValues();
+    const { isLoading, stopLoadingWithDelay } = useLoader(appSettings.isFirstLoad);
+
+    const setShouldShowLoaderNextTime = useSetPartialValuesCallback<boolean>((value) => ({ isFirstLoad: value }));
 
     useEffect(() => {
-        if (!user) {
-            return;
-        }
+        setShouldShowLoaderNextTime(false);
         stopLoadingWithDelay(3000);
-    }, [user, stopLoadingWithDelay]);
+    }, [setShouldShowLoaderNextTime, stopLoadingWithDelay]);
+
+    // FIXME
+    // This is not working as expected, the event gets triggered on every navigation.
+    // This means that the loader is shown every time the user comes to this page,
+    // instead of only showing it again on restart of the app.
+    useEventListener('beforeunload', () => setShouldShowLoaderNextTime(true));
 
     return (
         <main className="relative">
@@ -38,7 +44,7 @@ export default function HomePage() {
                         <Loader />
                     </motion.div>) :
 
-                    user?.showOnboarding ? <Onboarding user={user} /> : (
+                    appSettings?.showOnboarding ? <Onboarding /> : (
                         <article className="p-8">
                             <section className="mb-10">
                                 <h1 className="mb-2 text-4xl font-extralight">How quickly do you</h1>

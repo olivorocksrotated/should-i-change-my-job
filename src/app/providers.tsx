@@ -4,7 +4,8 @@ import { NextUIProvider } from '@nextui-org/react';
 import { StoreInspector } from 'tinybase/ui-react-dom';
 
 import { createLocalUser } from '@/lib/database/create';
-import { DatabaseProvider, useInitStore } from '@/lib/database/store';
+import { dbName, Provider as DatabaseProvider } from '@/lib/database/store';
+import useInitStore from '@/lib/database/use-init-store';
 import { isClient, isIndexedDBAvailable } from '@/lib/environments/client';
 
 if (isClient() && isIndexedDBAvailable()) {
@@ -12,11 +13,9 @@ if (isClient() && isIndexedDBAvailable()) {
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    const store = useInitStore();
-
     return (
         <NextUIProvider>
-            <DatabaseProvider store={store}>
+            <DatabaseProvider store={useInitStore(dbName)}>
                 {children}
                 <StoreInspector />
             </DatabaseProvider>

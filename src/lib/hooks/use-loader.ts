@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useTimeout } from 'usehooks-ts';
 
-export default function useLoader() {
-    const [isLoading, setIsLoading] = useState(true);
+export default function useLoader(initialValue: boolean = true) {
+    const [isLoading, setIsLoading] = useState(initialValue);
     const [loadingDelay, setLoadingDelay] = useState<number | null>(null);
 
     const stopLoadingImmediately = useCallback(() => setIsLoading(false), []);
