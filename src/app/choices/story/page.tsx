@@ -1,44 +1,22 @@
 'use client';
 
 import { Button, Card, CardBody, Textarea } from '@nextui-org/react';
-import { Message, useChat } from 'ai/react';
-import { useCallback, useEffect } from 'react';
+import { useChat } from 'ai/react';
+import { useEffect } from 'react';
 import { IoSend } from 'react-icons/io5';
+import { useDebounceCallback } from 'usehooks-ts';
 
-import { useSetTableCallback, useSortedRowIds, useTable } from '@/lib/database/store';
-import { dateToISOString } from '@/lib/date/format';
+import { useLoadInitialMessages, useUpdateStory } from './hooks';
 
 export default function StoryPage() {
     const { messages, input, setMessages, handleInputChange, handleSubmit } = useChat({ api: '/api/ai' });
 
-    const sortedStoredMessageIds = useSortedRowIds('storyMessages', 'createdAt', true);
-    const storedMessages = useTable('storyMessages');
-
-    const setInitialMessages = useCallback(() => {
-        let firstLoadDone = false;
-        if (firstLoadDone) {
-            return;
-        }
-
-        firstLoadDone = true;
-        setMessages(sortedStoredMessageIds.map((id) => storedMessages[id] as Message));
-    }, [setMessages, sortedStoredMessageIds, storedMessages]);
-
-    const updateStoredMessages = useSetTableCallback<Message[], 'storyMessages'>(
-        'storyMessages',
-        (updatedMessages) => updatedMessages.reduce((acc, message) => ({
-            ...acc,
-            [message.id]: { ...message, createdAt: dateToISOString(message.createdAt) }
-        }), {})
-    );
-
-    useEffect(() => {
-        setInitialMessages();
-    }, [setInitialMessages]);
+    useLoadInitialMessages(setMessages);
+    const updateStoredMessages = useDebounceCallback(useUpdateStory(), 1000);
 
     useEffect(() => {
         updateStoredMessages(messages);
-    }, [updateStoredMessages, messages]);
+    }, [messages, updateStoredMessages]);
 
     return (
         <article className="flex flex-col justify-between">

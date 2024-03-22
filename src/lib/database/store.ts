@@ -1,7 +1,7 @@
 import * as UiReact from 'tinybase/ui-react/with-schemas';
 
-import { appSettingsSchema } from './app-settings-schema';
-import { tablesSchema } from './table-schemas';
+import { appSettingsSchema } from './app-settings';
+import { tablesSchema } from './tables';
 
 export const dbName = 'siqmj';
 
