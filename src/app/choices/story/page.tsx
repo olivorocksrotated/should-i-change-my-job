@@ -19,10 +19,21 @@ export default function StoryPage() {
     }, [messages, updateStoredMessages]);
 
     return (
-        <article className="flex flex-col justify-between">
+        <article className="flex flex-1 flex-col justify-between overflow-hidden">
+            <ul className="max-h-full overflow-y-scroll px-4 pt-2">
+                {messages.map((m, index) => (
+                    <li key={index} className={`mb-4 ${m.role === 'user' ? 'pl-6' : 'pr-6'}`}>
+                        <Card className={m.role === 'user' ? 'light' : 'dark'}>
+                            <CardBody>
+                                <p>{m.content}</p>
+                            </CardBody>
+                        </Card>
+                    </li>
+                ))}
+            </ul>
             <form
                 onSubmit={handleSubmit}
-                className="mb-4 flex items-center justify-between gap-4 bg-neutral-200 px-3 py-2"
+                className="fixed inset-x-0 bottom-0 z-10 flex items-center justify-between gap-4 bg-neutral-200 px-3 py-2 lg:static"
             >
                 <Textarea
                     type="text"
@@ -39,23 +50,11 @@ export default function StoryPage() {
                     variant="solid"
                     size="lg"
                     isIconOnly
-                    className="mb-auto h-14"
+                    className="mb-auto h-14 w-16"
                 >
                     <IoSend size={20} />
                 </Button>
             </form>
-
-            <ul>
-                {messages.map((m, index) => (
-                    <li key={index} className={`mb-4 ${m.role === 'user' ? 'pl-6' : 'pr-6'}`}>
-                        <Card className={m.role === 'user' ? 'light' : 'dark'}>
-                            <CardBody>
-                                <p>{m.content}</p>
-                            </CardBody>
-                        </Card>
-                    </li>
-                ))}
-            </ul>
         </article>
     );
 }

@@ -27,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="bg-gradient-to-b from-neutral-900 to-neutral-800 lg:p-6">
-            <body className={`${font.className} w-full lg:mx-auto ${iphone14ProMaxSize} border border-neutral-700 bg-white text-neutral-800 lg:max-w-3xl`}>
+        <html lang="en" className="min-h-screen bg-gradient-to-b from-neutral-900 to-neutral-800 lg:p-6">
+            <body className={`${font.className} lg:mx-auto ${iphone14ProMaxSize} border border-neutral-700 bg-white text-neutral-800`}>
                 <Providers>{children}</Providers>
             </body>
         </html>
