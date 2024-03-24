@@ -16,7 +16,7 @@ export default function Loader() {
     useInterval(() => setText(findRandom(options)), 1500);
 
     return (
-        <article className={`${iphone14ProMaxSize} absolute left-0 top-0 z-10 flex flex-col`}>
+        <article className={`${iphone14ProMaxSize} absolute left-0 top-0 z-20 flex flex-col bg-white`}>
             <section className="p-8">
                 <h1 className="mb-2 text-4xl font-extralight">Should you</h1>
                 <h2 className="text-4xl">Quit your job?</h2>

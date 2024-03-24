@@ -10,5 +10,10 @@ export default function useLoader(initialValue: boolean = true) {
 
     useTimeout(() => setIsLoading(false), loadingDelay);
 
-    return { isLoading, stopLoadingImmediately, stopLoadingWithDelay };
+    return {
+        isLoading,
+        setIsLoading,
+        stopLoadingImmediately,
+        stopLoadingWithDelay
+    };
 }
