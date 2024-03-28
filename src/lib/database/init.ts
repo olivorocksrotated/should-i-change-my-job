@@ -2,8 +2,8 @@ import { Store } from 'tinybase';
 import { createIndexedDbPersister } from 'tinybase/persisters/persister-indexed-db';
 import { createStore } from 'tinybase/with-schemas';
 
+import { appSettingsSchema, initialAppSettings } from '../app-settings/schema';
 import { isClient, isIndexedDBAvailable } from '../environments/client';
-import { appSettingsSchema, initialAppSettings } from './app-settings';
 import { useCreateStore } from './store';
 import { tablesSchema } from './tables';
 

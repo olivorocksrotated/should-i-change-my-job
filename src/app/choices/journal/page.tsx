@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { createId } from '@/lib/database/id';
 import { useAddRowCallback } from '@/lib/database/store';
 import { dateToISOString } from '@/lib/date/format';
-import { GoodWorkJournalEntry } from '@/lib/good-work-journal-entry/types';
+import { GoodWorkJournalEntry } from '@/lib/good-work-journal/types';
 
 const dayMoods = [
     { value: 0, label: 'Horrible' },

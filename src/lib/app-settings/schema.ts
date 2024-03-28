@@ -1,4 +1,4 @@
-import { createId } from './id';
+import { createId } from '../database/id';
 
 export const initialAppSettings = {
     userId: createId(),
