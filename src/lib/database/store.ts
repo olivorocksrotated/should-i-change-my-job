@@ -17,5 +17,6 @@ export const {
     useSetTableCallback,
     useSetTablesCallback,
     useSortedRowIds,
+    useAddRowCallback,
     Provider
 } = UiReactWithSchemas;

@@ -3,4 +3,5 @@ export interface GoodWorkJournalEntry {
     learned: string;
     initiated: string;
     helped: string;
+    createdAt: string;
 }
